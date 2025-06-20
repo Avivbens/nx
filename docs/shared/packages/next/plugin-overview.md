@@ -3,6 +3,8 @@ title: Overview of the Nx Next.js Plugin
 description: The Nx Next.js plugin contains executors and generators for managing Next.js applications and libraries within an Nx workspace. This page also explains how to configure Next.js on your Nx workspace.
 ---
 
+# @nx/next
+
 When using Next.js in Nx, you get the out-of-the-box support for TypeScript, Cypress, and Jest. No need to configure anything: watch mode, source maps, and typings just work.
 
 The Next.js plugin contains executors and generators for managing Next.js applications and libraries within an Nx workspace. It provides:
@@ -338,7 +340,7 @@ This command performs several actions:
 
 Once you are ready to deploy your Next.js application, you have absolute freedom to choose any hosting provider that fits your needs.
 
-You may know that the company behind Next.js, Vercel, has a great hosting platform offering that is developed in tandem with Next.js itself to offer a great overall developer and user experience. We have detailed [how to deploy your Next.js application to Vercel in a separate guide](/recipes/react/deploy-nextjs-to-vercel).
+You may know that the company behind Next.js, Vercel, has a great hosting platform offering that is developed in tandem with Next.js itself to offer a great overall developer and user experience. We have detailed [how to deploy your Next.js application to Vercel in a separate guide](/technologies/react/recipes/deploy-nextjs-to-vercel).
 
 ## More Documentation
 

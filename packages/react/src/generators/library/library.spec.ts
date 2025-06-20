@@ -10,7 +10,6 @@ import {
   writeJson,
 } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
-import { Linter } from '@nx/eslint';
 import { nxVersion } from '../../utils/versions';
 import applicationGenerator from '../application/application';
 import libraryGenerator from './library';
@@ -29,7 +28,7 @@ describe('lib', () => {
   > = getInstalledCypressMajorVersion as never;
   let defaultSchema: Schema = {
     directory: 'my-lib',
-    linter: Linter.EsLint,
+    linter: 'eslint',
     skipFormat: true,
     skipTsConfig: false,
     unitTestRunner: 'jest',
@@ -483,7 +482,7 @@ describe('lib', () => {
       await applicationGenerator(tree, {
         compiler: 'babel',
         e2eTestRunner: 'none',
-        linter: Linter.EsLint,
+        linter: 'eslint',
         skipFormat: true,
         unitTestRunner: 'jest',
         directory: 'my-app',
@@ -510,7 +509,7 @@ describe('lib', () => {
     it('should initialize routes if none were set up then add new route', async () => {
       await applicationGenerator(tree, {
         e2eTestRunner: 'none',
-        linter: Linter.EsLint,
+        linter: 'eslint',
         skipFormat: true,
         unitTestRunner: 'jest',
         directory: 'my-app',
@@ -531,6 +530,23 @@ describe('lib', () => {
       expect(appSource).toContain('@proj/my-lib');
       expect(appSource).toContain('react-router-dom');
       expect(appSource).toMatch(/<Route\s*path="\/my-lib"/);
+    });
+  });
+
+  describe('--routing', () => {
+    it('should be able to generate a library with routing', async () => {
+      await libraryGenerator(tree, {
+        ...defaultSchema,
+        routing: true,
+      });
+
+      const content = tree.read('my-lib/src/lib/my-lib.tsx', 'utf-8');
+      expect(content).toContain('react-router-dom');
+
+      expect(content).toMatch(/<Link\s*to="\/">my-lib root<\/Link>/);
+      expect(content).toMatch(
+        /<Route\s*path="\/"\s*element={<div>This is the my-lib root route.<\/div>} \/>/
+      );
     });
   });
 

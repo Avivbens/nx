@@ -170,8 +170,8 @@ describe('release publishable libraries', () => {
       📦  @proj/{project-name}@0.0.3
       === Tarball Contents ===
       XXX.XXX kb README.md
+      XXB index.d.ts
       XXB index.esm.css
-      XXB index.esm.d.ts
       XXB index.esm.js
       XXXB package.json
       XXB src/index.d.ts
@@ -230,7 +230,6 @@ describe('release publishable libraries', () => {
       XXX.XXX kb fesm2022/proj-{project-name}.mjs
       XXX.XXX kb fesm2022/proj-{project-name}.mjs.map
       XXB index.d.ts
-      XXB lib/{project-name}/{project-name}.component.d.ts
       XXXB package.json
       === Tarball Details ===
       name:          @proj/{project-name}

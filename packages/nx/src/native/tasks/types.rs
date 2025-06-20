@@ -2,25 +2,37 @@ use std::fmt::Formatter;
 use std::{collections::HashMap, fmt, ptr};
 
 use napi::{
-    bindgen_prelude::{check_status, ToNapiValue},
+    bindgen_prelude::{ToNapiValue, check_status},
     sys,
 };
 
 #[napi(object)]
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Debug, PartialEq, Eq)]
 pub struct Task {
     pub id: String,
     pub target: TaskTarget,
     pub outputs: Vec<String>,
     pub project_root: Option<String>,
+    pub start_time: Option<i64>,
+    pub end_time: Option<i64>,
+    pub continuous: Option<bool>,
 }
 
 #[napi(object)]
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Debug, PartialEq, Eq)]
 pub struct TaskTarget {
     pub project: String,
     pub target: String,
     pub configuration: Option<String>,
+}
+
+#[napi(object)]
+#[derive(Default, Clone, Debug, PartialEq, Eq)]
+pub struct TaskResult {
+    pub task: Task,
+    pub status: String,
+    pub code: i32,
+    pub terminal_output: Option<String>,
 }
 
 #[napi(object)]
@@ -30,7 +42,7 @@ pub struct TaskGraph {
     pub dependencies: HashMap<String, Vec<String>>,
 }
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone)]
 pub enum HashInstruction {
     WorkspaceFileSet(Vec<String>),
     Runtime(String),

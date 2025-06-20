@@ -268,8 +268,10 @@ async function runPublishOnProjects(
 
   /**
    * Run the relevant nx-release-publish executor on each of the selected projects.
+   * NOTE: Force TUI to be disabled for now.
    */
-  const commandResults = await runCommandForTasks(
+  process.env.NX_TUI = 'false';
+  const { taskResults } = await runCommandForTasks(
     projectsWithTarget,
     projectGraph,
     { nxJson },
@@ -287,13 +289,13 @@ async function runPublishOnProjects(
   );
 
   const publishProjectsResult: PublishProjectsResult = {};
-  for (const taskData of Object.values(commandResults)) {
+  for (const taskData of Object.values(taskResults)) {
     publishProjectsResult[taskData.task.target.project] = {
       code: taskData.code,
     };
   }
   await runPostTasksExecution({
-    taskResults: commandResults,
+    taskResults,
     workspaceRoot,
     nxJsonConfiguration: nxJson,
   });

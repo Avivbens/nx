@@ -1,7 +1,10 @@
 mod find_matching_projects;
 mod get_mod_time;
+pub mod json;
 mod normalize_trait;
 pub mod path;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod socket_path;
 
 pub use find_matching_projects::*;
 pub use get_mod_time::*;
